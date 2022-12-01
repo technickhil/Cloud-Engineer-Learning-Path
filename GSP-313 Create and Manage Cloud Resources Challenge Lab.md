@@ -11,6 +11,7 @@ Do not change the other settings just click on the create.
 
 ## Task 2 : Create a Kubernetes service cluster
 
+```
 gcloud container clusters create nucleus-backend \
           --num-nodes 1 \
           --network nucleus-vpc \
@@ -23,12 +24,13 @@ kubectl create deployment hello-server \
 
 kubectl expose deployment hello-server \
           --type=LoadBalancer \
-          --port <_**Use port given in the lab**_>
-
+          --port <Use port given in the lab>
+```
 
 
 ## Task 3 : Set up an HTTP load balancer
 
+```
 cat << EOF > startup.sh
 #! /bin/bash
 apt-get update
@@ -52,7 +54,7 @@ gcloud compute instance-groups managed create web-server-group \
        --template web-server-template \
        --region us-west1
 
-gcloud compute firewall-rules create <_**Copy FIREWALL_NAME given in the lab**_> \
+gcloud compute firewall-rules create <Copy FIREWALL_NAME given in the lab> \
        --allow tcp:80 \
        --network nucleus-vpc
 
@@ -83,3 +85,4 @@ gcloud compute forwarding-rules create permit-tcp-rule-261 \
      --global \
      --target-http-proxy http-lb-proxy \
      --ports 80
+```
